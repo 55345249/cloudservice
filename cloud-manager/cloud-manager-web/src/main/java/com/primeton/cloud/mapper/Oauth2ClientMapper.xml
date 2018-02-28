@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.primeton.cloud.dao.Oauth2ClientMapper">
+  <resultMap id="BaseResultMap" type="com.primeton.cloud.model.Oauth2Client">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="client_name" jdbcType="VARCHAR" property="clientName" />
+    <result column="client_id" jdbcType="VARCHAR" property="clientId" />
+    <result column="client_secret" jdbcType="VARCHAR" property="clientSecret" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, client_name, client_id, client_secret
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from oauth2_client
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from oauth2_client
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.primeton.cloud.model.Oauth2Client">
+    insert into oauth2_client (id, client_name, client_id, 
+      client_secret)
+    values (#{id,jdbcType=BIGINT}, #{clientName,jdbcType=VARCHAR}, #{clientId,jdbcType=VARCHAR}, 
+      #{clientSecret,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.primeton.cloud.model.Oauth2Client">
+    insert into oauth2_client
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="clientName != null">
+        client_name,
+      </if>
+      <if test="clientId != null">
+        client_id,
+      </if>
+      <if test="clientSecret != null">
+        client_secret,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="clientName != null">
+        #{clientName,jdbcType=VARCHAR},
+      </if>
+      <if test="clientId != null">
+        #{clientId,jdbcType=VARCHAR},
+      </if>
+      <if test="clientSecret != null">
+        #{clientSecret,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.primeton.cloud.model.Oauth2Client">
+    update oauth2_client
+    <set>
+      <if test="clientName != null">
+        client_name = #{clientName,jdbcType=VARCHAR},
+      </if>
+      <if test="clientId != null">
+        client_id = #{clientId,jdbcType=VARCHAR},
+      </if>
+      <if test="clientSecret != null">
+        client_secret = #{clientSecret,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.primeton.cloud.model.Oauth2Client">
+    update oauth2_client
+    set client_name = #{clientName,jdbcType=VARCHAR},
+      client_id = #{clientId,jdbcType=VARCHAR},
+      client_secret = #{clientSecret,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
